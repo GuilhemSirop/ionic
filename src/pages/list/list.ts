@@ -7,6 +7,7 @@ import { SingleItem } from '../../pages/single-item/single-item';
 
 // Service import for items
 import { ItemApi } from '../../services/service';
+import { PizzaProvider } from "../../providers/pizza-service/pizza-service";
 
 // The component imports the specific parts from the html and scss file.
 // The Http provider is included to make the API call to the service.
@@ -22,13 +23,24 @@ export class ListPage {
   // The items array to populate with data is created
   items: any;
 
-  // The navController and the ItemApi Service is injected into the constructor
+  pizzas: Array<any>; 
+  
+  // The navController and the ItemApi Service is injected into the constructor  
   constructor(
               public navCtrl: NavController,
               public params:NavParams,
               private itemApi: ItemApi,
+              private pizzaProvider: PizzaProvider,
               public loadingController: LoadingController
-            ) {}
+            ) {
+    this.pizzaProvider.get().subscribe(
+      (res: any) => {
+        this.pizzas = res;
+        console.log(res);
+        },
+      err => console.log(err)
+    );
+  }
 
   // ------------------------------------------------------------------------------------------
   // FUNCTIONS
@@ -37,15 +49,16 @@ export class ListPage {
   // This is where the data loads from the service.
   // It happens when the view loads for the first time.
   ionViewDidLoad() {
-
+  
     let loader = this.loadingController.create({
-      content: "Getting items.."
+      content: "Chargement de toutes nos sublimes pizzas.."
     });
     loader.present();
 
     this.itemApi.getItems().then(data => {
         loader.dismiss();
         this.items = data
+        console.log(this.items);
     });
   }
 

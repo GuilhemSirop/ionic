@@ -21,6 +21,14 @@
   </ion-toolbar>
  End of Toolbar Code -->
 
+<ion-card *ngFor="let pizza of pizzas">
+    <ion-card-header>
+      {{pizza.name}}
+    </ion-card-header>
+    <ion-card-content>
+      <img src="{{pizza.picture}}" alt="">
+    </ion-card-content>
+  </ion-card>
 
 
   <!-- List Code -->

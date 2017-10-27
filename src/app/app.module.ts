@@ -19,6 +19,7 @@ import { ItemApi } from '../services/item-api.service';
 // Native imports
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { PizzaProvider } from '../providers/pizza-service/pizza-service';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     SplashScreen,
     ItemApi,
     HttpModule,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler}, 
+    PizzaProvider
   ]
 })
 export class AppModule {}
